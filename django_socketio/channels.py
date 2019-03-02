@@ -17,7 +17,7 @@ class SocketIOChannelProxy(object):
         Store the original socket protocol object.
         """
         self.socket = socket
-        self.channels = [] # store our subscribed channels for faster lookup.
+        self.channels = []  # store our subscribed channels for faster lookup.
 
     def subscribe(self, channel):
         """

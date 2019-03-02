@@ -4,7 +4,7 @@ from django.conf import settings
 try:
     # Django < 1.9
     from django.utils.importlib import import_module
-except:
+except ImportError:
     # Django >= 1.9
     from importlib import import_module
 
@@ -19,5 +19,5 @@ for app in settings.INSTALLED_APPS:
 
 
 urlpatterns = [
-    url("^socket\.io", views.socketio, name="socketio"),
+    url("socket.io", views.socketio, name="socketio"),
 ]

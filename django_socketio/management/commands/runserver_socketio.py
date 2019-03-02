@@ -1,6 +1,8 @@
-
 from re import match
-from thread import start_new_thread
+try:
+    from thread import start_new_thread
+except ImportError:
+    from _thread import start_new_thread
 from time import sleep
 from os import getpid, kill, environ
 from signal import SIGINT
@@ -10,6 +12,7 @@ from django.core.handlers.wsgi import WSGIHandler
 from django.core.management.base import BaseCommand, CommandError
 from django.core.management.commands.runserver import naiveip_re
 from django.utils.autoreload import code_changed, restart_with_reloader
+
 try:
     from socketio import SocketIOServer
 except ImportError:
@@ -21,6 +24,7 @@ from django_socketio.settings import HOST, PORT
 
 RELOAD = False
 
+
 def reload_watcher():
     global RELOAD
     while True:
@@ -28,6 +32,7 @@ def reload_watcher():
         if RELOAD:
             kill(getpid(), SIGINT)
         sleep(1)
+
 
 class Command(BaseCommand):
 
@@ -53,9 +58,7 @@ class Command(BaseCommand):
         start_new_thread(reload_watcher, ())
         try:
             bind = (self.addr, int(self.port))
-            print
-            print "SocketIOServer running on %s:%s" % bind
-            print
+            print("\nSocketIOServer running on %s:%s\n" % bind)
             handler = self.get_handler(*args, **options)
             server = SocketIOServer(bind, handler, resource="socket.io")
             server.serve_forever()
@@ -63,8 +66,7 @@ class Command(BaseCommand):
             client_end_all()
             if RELOAD:
                 server.kill()
-                print
-                print "Reloading..."
+                print("\nReloading...\n")
                 restart_with_reloader()
             else:
                 raise

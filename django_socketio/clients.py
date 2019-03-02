@@ -41,5 +41,3 @@ def client_end_all():
     """
     for request, socket, context in CLIENTS.values()[:]:
         client_end(request, socket, context)
-
-

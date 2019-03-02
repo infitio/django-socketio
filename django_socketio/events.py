@@ -5,6 +5,7 @@ import re
 class EventError(Exception):
     pass
 
+
 class Event(object):
     """
     Signal-like object for Socket.IO events that supports
@@ -71,13 +72,13 @@ class Event(object):
                 handler(request, socket, context, *args)
 
 
-on_connect      = Event(False)  # request, socket, context
-on_message      = Event()       # request, socket, context, message
-on_subscribe    = Event()       # request, socket, context, channel
-on_unsubscribe  = Event()       # request, socket, context, channel
-on_error        = Event()       # request, socket, context, exception
-on_disconnect   = Event()       # request, socket, context
-on_finish       = Event()       # request, socket, context
+on_connect = Event(False)  # request, socket, context
+on_message = Event()       # request, socket, context, message
+on_subscribe = Event()       # request, socket, context, channel
+on_unsubscribe = Event()       # request, socket, context, channel
+on_error = Event()       # request, socket, context, exception
+on_disconnect = Event()       # request, socket, context
+on_finish = Event()       # request, socket, context
 
 # Give each event a name attribute.
 d = dict(globals())

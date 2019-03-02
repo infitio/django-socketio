@@ -1,4 +1,3 @@
-
 from django.core.urlresolvers import reverse
 from django.test import Client
 from django.test import TestCase
@@ -24,6 +23,7 @@ class MockAttributes(object):
 
     def __call__(self, *args, **kwargs):
         return None
+
 
 class MockSocketIo(MockAttributes):
     """
@@ -52,6 +52,7 @@ class MockSocketIo(MockAttributes):
         """
         return not self.recv_once
 
+
 class SocketIoClient(Client):
     """
     Test client that adds a mocked socketio object to the
@@ -62,6 +63,7 @@ class SocketIoClient(Client):
         environ = super(Client, self)._base_environ(**request)
         environ["socketio"] = MockSocketIo()
         return environ
+
 
 class Tests(TestCase):
     """
